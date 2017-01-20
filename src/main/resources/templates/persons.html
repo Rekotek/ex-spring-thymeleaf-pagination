@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Список потребителей</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet"/>
+
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.2.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.2.4/jquery.min.js}"></script>
+    <script src="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <h1>Список потребителей продукта</h1>
+    </div>
+
+    <div class="row">
+        <table class="table table-striped">
+            <tr>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Возраст</th>
+            </tr>
+            <tr th:each="person : ${persons}">
+                <td th:text="${person.surname}"></td>
+                <td th:text="${person.name}"></td>
+                <td th:text="${person.secondName}"></td>
+                <td th:text="${person.age}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Here is the footer with pagination -->
+    <div class="footer">
+        <div class="row center">
+            Текущая страница: <span th:text="${currentPageNumber}"/>
+        </div>
+
+        <div th:if="${numOfPages != 1}" class="form-group col-md-11 pagination-centered">
+            <ul class="pagination">
+                <li th:class="${currentPageNumber == 1} ? disabled"><a class="pageLink"
+                                                                       th:href="@{/(page=1)}">&laquo;</a></li>
+                <li th:class="${currentPageNumber == 1} ? disabled"><a class="pageLink"
+                                                                       th:href="@{/(page=${currentPageNumber} - 1)}">&larr;</a>
+                </li>
+                <li th:class="${currentPageNumber == numOfPages} ? disabled"><a class="pageLink"
+                                                                                th:href="@{/(page=${currentPageNumber + 1})}">&rarr;</a>
+                </li>
+                <li th:class="${currentPageNumber == numOfPages} ? disabled"><a class="pageLink"
+                                                                                th:href="@{/(page=${numOfPages})}">&raquo;</a>
+                </li>
+            </ul>
+
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
